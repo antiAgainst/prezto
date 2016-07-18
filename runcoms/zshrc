@@ -39,3 +39,20 @@ fi
 if [[ -x /usr/bin/dircolors ]]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
+
+umask 022
+
+# Configure, build, test.
+rmkdir() { rm -rf "$*" && mkdir "$*" && cd "$*" }
+dcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@" }
+rcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$@" }
+alias bat='ninja && ctest -j`nproc` --output-on-failure'
+
+# File navigation.
+alias vi='vim $(fzf-tmux)'
+alias nvi='nvim $(fzf-tmux)'
+
+eval "$(fasd --init auto)"
+alias o='a -e xdg-open'
+alias v='f -e vim'
+alias nv='f -e nvim'
