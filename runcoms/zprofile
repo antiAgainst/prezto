@@ -13,10 +13,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
 
-#
-# Editors
-#
-
+export DISPLAY=:0.0
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
