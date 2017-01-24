@@ -58,3 +58,5 @@ eval "$(fasd --init auto)"
 alias o='a -e xdg-open'
 alias v='f -e vim'
 alias nv='f -e nvim'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
