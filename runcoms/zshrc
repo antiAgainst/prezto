@@ -51,12 +51,10 @@ grcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMM
 alias bat='ninja && ctest -j`nproc` --output-on-failure'
 
 # File navigation.
-alias vi='vim $(fzf-tmux)'
-alias nvi='nvim $(fzf-tmux)'
+alias vi='vim $(sk-tmux)'
+alias nvi='nvim $(sk-tmux)'
 
 eval "$(fasd --init auto)"
 alias o='a -e xdg-open'
 alias v='f -e vim'
 alias nv='f -e nvim'
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
