@@ -42,9 +42,12 @@ typeset -gU cdpath fpath mailpath path
 path=(
   $HOME/.skim/bin
   $HOME/.cargo/bin
+  $HOME/go/bin
   $HOME/.local/bin
   $path
 )
+
+export GOPATH=$HOME/go
 
 #
 # Less
