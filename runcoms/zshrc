@@ -12,7 +12,7 @@ fi
 # These Powerlevel9k settings must be done before prezto loads the theme.
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history)
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
 
 # Source Prezto.
@@ -35,7 +35,6 @@ alias lt='lsd --tree'
 alias vi='vim $(sk-tmux)'
 alias nvi='nvim $(sk-tmux)'
 
-eval "$(fasd --init auto)"
-alias o='a -e xdg-open'
-alias v='f -e vim'
-alias nv='f -e nvim'
+alias o='fasd -a -e open'
+alias v='fasd -f -e vim'
+alias nv='fasd -f -e nvim'
