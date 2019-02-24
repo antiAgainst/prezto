@@ -2,11 +2,6 @@
 # Executes commands at the start of an interactive session.
 #
 
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
 # $TERM should be screen-256color when tmux is running; otherwise, xterm-256color.
 if [[ -n "$TMUX" ]]; then
   export TERM=screen-256color
@@ -14,13 +9,27 @@ else
   export TERM=xterm-256color
 fi
 
+# These Powerlevel9k settings must be done before prezto loads the theme.
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator dir dir_writable vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
 # Configure, build, test.
-rmkdir()  { rm -rf "$*" && mkdir "$*" && cd "$*" }
 cdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
 crcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
 gdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
 grcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
-alias bat='ninja && ctest -j`nproc` --output-on-failure'
+
+alias lc='colorls'
+alias ls='lsd'
+alias ll='lsd -l'
+alias lt='lsd --tree'
 
 # File navigation.
 alias vi='vim $(sk-tmux)'
