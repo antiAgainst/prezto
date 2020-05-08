@@ -21,12 +21,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Configure, build, test.
-cdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
-crcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
-gdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
-grcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
-
 alias lc='colorls'
 alias ls='lsd'
 alias ll='lsd -l'
@@ -39,3 +33,22 @@ alias nvi='nvim $(sk-tmux)'
 alias o='fasd -a -e open'
 alias v='fasd -f -e vim'
 alias nv='fasd -f -e nvim'
+
+# Configure, build, test.
+cdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
+crcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
+gdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
+grcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
+
+mlircmake() {
+  cmake ${1:?"missing source directory"} -GNinja \
+    -DCMAKE_BUILD_TYPE=${2:?"missing build type"} \
+    -DCMAKE_C_COMPILER=${3:=clang} \
+    -DCMAKE_CXX_COMPILER=${4:=clang++} \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+    -DLLVM_ENABLE_PROJECTS=mlir \
+    -DLLVM_BUILD_EXAMPLES=ON \
+    -DLLVM_TARGETS_TO_BUILD="host" \
+    -DLLVM_ENABLE_ASSERTIONS=ON \
+    -DMLIR_VULKAN_RUNNER_ENABLED=1
+}
