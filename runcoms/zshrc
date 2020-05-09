@@ -41,10 +41,24 @@ gdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_EXPORT_COMPILE_COMM
 grcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
 
 mlircmake() {
-  cmake ${1:?"missing source directory"} -GNinja \
-    -DCMAKE_BUILD_TYPE=${2:?"missing build type"} \
-    -DCMAKE_C_COMPILER=${3:=clang} \
-    -DCMAKE_CXX_COMPILER=${4:=clang++} \
+  if (( $# < 2 ))
+  then
+    echo usage: "$1 <source-dir> <build-type> [shared] [c-compiler] [cxx-compiler]"
+    return 1
+  fi
+
+  if [[ "$3" == "shared" ]]
+  then
+    shared=ON
+  else
+    shared=OFF
+  fi
+
+  cmake $1 -GNinja \
+    -DCMAKE_BUILD_TYPE=$2 \
+    -DBUILD_SHARED_LIBS=${shared} \
+    -DCMAKE_C_COMPILER=${4:=clang} \
+    -DCMAKE_CXX_COMPILER=${5:=clang++} \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
     -DLLVM_ENABLE_PROJECTS=mlir \
     -DLLVM_BUILD_EXAMPLES=ON \
