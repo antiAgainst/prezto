@@ -40,7 +40,7 @@ crcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPI
 gdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
 grcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
 
-mlircmake() {
+mlir_cmake() {
   if (( $# < 2 ))
   then
     echo usage: "$1 <source-dir> <build-type> [shared] [c-compiler] [cxx-compiler]"
@@ -65,4 +65,10 @@ mlircmake() {
     -DLLVM_TARGETS_TO_BUILD="host" \
     -DLLVM_ENABLE_ASSERTIONS=ON \
     -DMLIR_VULKAN_RUNNER_ENABLED=1
+}
+
+iree_cpu_ctest() {
+  VK_ICD_FILENAMES=$HOME/vulkan/swiftshader/build/Linux/vk_swiftshader_icd.json \
+  VK_LAYER_PATH=$HOME/vulkan/Vulkan-ExtensionLayer/build/layers:$VK_LAYER_PATH  \
+  ctest "$@"
 }
