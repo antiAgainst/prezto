@@ -27,6 +27,8 @@ alias ll='lsd -l'
 alias lt='lsd --tree'
 
 # File navigation.
+export SKIM_DEFAULT_COMMAND="git ls-tree -r --name-only HEAD || rg --files || find ."
+
 alias vi='vim $(sk-tmux)'
 alias nvi='nvim $(sk-tmux)'
 
@@ -65,7 +67,8 @@ mlir_cmake() {
     -DLLVM_TARGETS_TO_BUILD="host" \
     -DLLVM_ENABLE_ASSERTIONS=ON \
     -DLLVM_ENABLE_LLD=ON \
-    -DMLIR_VULKAN_RUNNER_ENABLED=1
+    -DMLIR_VULKAN_RUNNER_ENABLED=1 \
+    -DMLIR_SPIRV_CPU_RUNNER_ENABLED=1
 }
 
 iree_cpu_ctest() {

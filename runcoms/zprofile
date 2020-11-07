@@ -30,7 +30,11 @@ fi
 #
 
 export GOPATH=$HOME/go
-export VULKAN_SDK=$HOME/vulkan/sdk/1.2.135.0/x86_64/
+export VULKAN_SDK=$HOME/vulkan/sdk/1.2.135.0/x86_64
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_NDK_ROOT=$HOME/Android/Sdk/ndk/21.3.6528147
+export ANDROID_SDK_BUILD_TOOLS_VERSION=30.0.2
+export PYENV_ROOT=$HOME/.pyenv
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
@@ -47,6 +51,8 @@ path=(
   $HOME/.cargo/bin
   $HOME/go/bin
   $HOME/.local/bin
+  $PYENV_ROOT/bin
+  $HOME/bin
   $path
 )
 
@@ -97,3 +103,8 @@ bindkey -M vicmd "q" push-line
 bindkey -M viins ' ' magic-space
 
 umask 022
+
+# Enable pyenv if exists
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
