@@ -43,38 +43,3 @@ cdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug          -DCMAKE_EXPORT_COMPI
 crcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
 gdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
 grcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=gcc   -DCMAKE_CXX_COMPILER=g++     "$@" }
-
-mlir_cmake() {
-  if (( $# < 2 ))
-  then
-    echo usage: "$1 <source-dir> <build-type> [shared] [c-compiler] [cxx-compiler]"
-    return 1
-  fi
-
-  if [[ "$3" == "shared" ]]
-  then
-    shared=ON
-  else
-    shared=OFF
-  fi
-
-  cmake $1 -GNinja \
-    -DCMAKE_BUILD_TYPE=$2 \
-    -DBUILD_SHARED_LIBS=${shared} \
-    -DCMAKE_C_COMPILER=${4:=clang} \
-    -DCMAKE_CXX_COMPILER=${5:=clang++} \
-    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-    -DLLVM_ENABLE_PROJECTS=mlir \
-    -DLLVM_BUILD_EXAMPLES=ON \
-    -DLLVM_TARGETS_TO_BUILD="host" \
-    -DLLVM_ENABLE_ASSERTIONS=ON \
-    -DLLVM_ENABLE_LLD=ON \
-    -DMLIR_VULKAN_RUNNER_ENABLED=1 \
-    -DMLIR_SPIRV_CPU_RUNNER_ENABLED=1
-}
-
-iree_cpu_ctest() {
-  VK_ICD_FILENAMES=$HOME/vulkan/swiftshader/build/Linux/vk_swiftshader_icd.json \
-  VK_LAYER_PATH=$HOME/vulkan/Vulkan-ExtensionLayer/build/layers:$VK_LAYER_PATH  \
-  ctest "$@"
-}
