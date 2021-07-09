@@ -36,6 +36,8 @@ alias o='fasd -a -e open'
 alias v='fasd -f -e vim'
 alias nv='fasd -f -e nvim'
 
+export CTEST_OUTPUT_ON_FAILURE=1
+
 # Configure, build, test.
 cdcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=Debug          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
 crcmake() { cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ "$@" }
