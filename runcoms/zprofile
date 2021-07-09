@@ -103,8 +103,3 @@ bindkey -M vicmd "q" push-line
 bindkey -M viins ' ' magic-space
 
 umask 022
-
-# Enable pyenv if exists
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
