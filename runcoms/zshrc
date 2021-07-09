@@ -11,7 +11,7 @@ fi
 
 # These Powerlevel9k settings must be done before prezto loads the theme.
 POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator dir dir_writable vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator dir dir_writable)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history)
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
