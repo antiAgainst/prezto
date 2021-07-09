@@ -29,6 +29,9 @@ zstyle ':prezto:*:*' color 'yes'
 
 # Set the Prezto modules to load (browse modules).
 # The order matters.
+
+# osx, git, python must be loaded before completion
+# fasd must be loaded after completion
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
@@ -37,15 +40,15 @@ zstyle ':prezto:load' pmodule \
   'directory' \
   'spectrum' \
   'utility' \
+  'osx' \
+  'git' \
+  'python' \
   'completion' \
+  'fasd' \
   'syntax-highlighting' \
   'history-substring-search' \
   'autosuggestions' \
-  'osx' \
   'tmux' \
-  'git' \
-  'fasd' \
-  'python' \
   'ruby' \
   'prompt'
 
